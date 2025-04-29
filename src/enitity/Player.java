@@ -14,6 +14,7 @@ public class Player extends Entity{
     KeyHandler keyHandler;
     public final int screenX;
     public final int screenY;
+    int hasKey = 0;
     public Player(GamePanel gp, KeyHandler keyHandler) {
         this.gp = gp;
         this.keyHandler = keyHandler;
@@ -23,6 +24,8 @@ public class Player extends Entity{
         //for collision
         solidArea = new Rectangle(8,16, 32, 32);
 
+        solidAreaDefaultX = solidArea.x;
+        solidAreaDefaultY = solidArea.y;
         setDefaultValues();
         getPlayerImage();
     }
@@ -73,6 +76,10 @@ public class Player extends Entity{
             collisionOn = false;
             //pass player class is a subclass of entity
             gp.cChecker.checkTile(this);
+
+            //check object collision
+            int object_index = gp.cChecker.checkObject(this, true);
+            pickUpObject (object_index);
             //if collision is false player can move
             if(!collisionOn){
                 switch (direction){
@@ -103,6 +110,26 @@ public class Player extends Entity{
         }
 
 
+    }
+    public void pickUpObject (int index){
+        if (index != 999){
+
+            String objectName = gp.obj[index].name;
+            switch (objectName){
+                case "Key":
+                    hasKey++;
+                    gp.obj[index]=null;
+                    break;
+                case "Door":
+                    if (hasKey>0){
+                        gp.obj[index]=null;
+                        hasKey--;
+                    }
+                    break;
+
+            }
+
+        }
     }
     public void draw(Graphics2D graphics2D){
 //Not using rectangle anymore

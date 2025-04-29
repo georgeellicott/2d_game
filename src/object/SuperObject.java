@@ -11,6 +11,10 @@ public class SuperObject {
     public String name;
     public boolean collision = false;
     public int worldX, worldY;
+    //like player object each object has solid area - whole tile
+    public Rectangle solidArea = new Rectangle(0,0,48,48);
+    public int solidAreaDefaultX = 0;
+    public int solidAreaDefaultY = 0;
 
     public void draw(Graphics2D graphics2D, GamePanel gp){
         //offset by gp.player.screenX so the player can stand in  the corner i.e 0,0
