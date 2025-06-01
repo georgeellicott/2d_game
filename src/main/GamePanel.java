@@ -26,8 +26,7 @@ public class GamePanel extends JPanel implements Runnable {
     //world settings
     public final int maxWorldCol = 50;
     public final int maxWorldRow = 50;
-    public final int worldWidth = tileSize * maxWorldCol;
-    public final int worldHeight = tileSize * maxWorldRow;
+
 
 
 
@@ -35,10 +34,15 @@ public class GamePanel extends JPanel implements Runnable {
     int FPS=60;
     //end of screen settings
 
+    //create sound
+    Sound sound = new Sound();
+
     //collision checker
     public CollisionChecker cChecker = new CollisionChecker(this);
     public AssetSetter aSetter = new AssetSetter(this);
     public SuperObject obj[] = new SuperObject[10];
+
+
 
     //create tile manager
     TileManager tileM = new TileManager(this);
@@ -59,6 +63,8 @@ public class GamePanel extends JPanel implements Runnable {
 
     public void setUpGame(){
         aSetter.setObject();
+
+        playMusic(0);
     }
     public void startGameThread(){
         gameThread = new Thread(this);
@@ -122,5 +128,17 @@ public class GamePanel extends JPanel implements Runnable {
 
         graphics2D.dispose();
 
+    }
+    public void playMusic(int i){
+        sound.setFile(i);
+        sound.play();
+        sound.loop();
+    }
+    public void stopMusic(){
+        sound.stop();
+    }
+    public void play_soundEffect(int i){
+        sound.setFile(i);
+        sound.play();
     }
 }

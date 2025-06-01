@@ -117,14 +117,23 @@ public class Player extends Entity{
             String objectName = gp.obj[index].name;
             switch (objectName){
                 case "Key":
+                    gp.play_soundEffect(1);
                     hasKey++;
                     gp.obj[index]=null;
                     break;
                 case "Door":
+
                     if (hasKey>0){
+                        gp.play_soundEffect(3);
                         gp.obj[index]=null;
                         hasKey--;
                     }
+                    break;
+                case "Boot":
+                    gp.play_soundEffect(2);
+                    speed+=1;
+                    gp.obj[index]=null;
+
                     break;
 
             }
